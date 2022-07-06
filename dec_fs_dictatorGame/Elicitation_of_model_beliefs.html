@@ -1,128 +1,69 @@
 {{ block title }}Einstellung gegenüber dem KI-System{{ endblock }}
-{{ block content }}
 
 {{ block global_styles  }}
+    <link rel="stylesheet" href="{{ static 'global/style_sheet.css' }}">
     <link href= "{{static 'global/noUiSlider/dist/nouislider.css'}}" rel="stylesheet">
     <script src="{{static 'global/noUiSlider/dist/nouislider.js'}}"></script>
 {{ endblock }}
 
 
-{{ if player.treatment == 'baseline' }}
+{{ block content }}
+
 <script>
-
-    $(document).ready(function() {
-        var slider1 = document.getElementById('KI-System_1');
-
-        var range = {
-            'min': [1],
-            'max': [7]
-        };
-
-        noUiSlider.create(slider1, {
-            range: range,
-            start: 4,
-            step: 1,
-            tooltips: true,
-            pips: {
-                mode: 'count',
-                values: 7,
-                density: 7
-            }
-
-        });
-        // show slider value
-        var rangeSlider1Val = document.getElementById("slider1_value");
-
-        slider1.noUiSlider.on("update", function (values, handle) {
-            rangeSlider1Val.innerHTML = values[handle];
-        });
-        // write slider result into form field for data export
-        document.getElementById("next-button").addEventListener("click", function () {
-            document.getElementById("belief_model_full").value = parseInt(slider1.noUiSlider.get(true))
-        });
-    });
+    // When players click on table cell radio button gets selected
+            $(document).on("click","td",function(){
+                $(this).find("input:radio").prop("checked", true);
+            })
 </script>
 
-
-{{ else }}
-<script>
-    $(document).ready(function(){
-        var slider2 = document.getElementById('KI-System_2');
-
-            var range = {
-                'min': [ 1 ],
-                'max': [ 7 ]
-            };
-
-            noUiSlider.create(slider2, {
-                range: range,
-                start: 4,
-                step: 1,
-                tooltips: true,
-                pips: {
-                    mode: 'count',
-                    values: 7,
-                    density: 7
-                }
-        });
-        // show slider value
-    var rangeSlider2Val = document.getElementById("slider2_value");
-
-      slider2.noUiSlider.on("update", function(values, handle){
-           rangeSlider2Val.innerHTML = values[handle];
-        });
-          // write slider result into form field for data export
-        document.getElementById("next-button").addEventListener("click", function (){
-           document.getElementById("belief_model_dec_fs").value = parseInt(slider2.noUiSlider.get(true))
-        });
-
-    });
-    </script>
-{{ endif }}
-
 <br>
     <p>
-
-        Wir möchten nun von Ihnen wissen, wie zuversichtlich Sie sich fühlen, dass das zuvor eingeführte KI-System Ihre Entscheidung korrekt vorhersagen wird.
-        Bitte geben Sie Ihre Antwort auf einer Skala von 1 (sehr unsicher) bis 7 (sehr sicher) an.
+        Wir möchten Sie nun bitten, einige Fragen zu dem KI-System wahrheitsgemäß zu beantworten.
+        Bite beachten Sie, dass Ihre Antworten auf die folgenden Fragen das Ergebnis, und damit Ihre finale Auszahlung, nicht beeinflussen.
+        Sie dienen ausschließlich unserem Verständnis gegenüber Ihrer Bewertung des KI-Systems.
     <p>
-    <br>
-
-{{ if player.treatment == 'baseline' }}
-
-<p><b>Ihre Zuversicht gegenüber dem KI System:</b></p>
-<br>
-<div id='KI-System_1' ></div>
-<input type="hidden" name="belief_model" id="belief_model_full" />
-{{ formfield_errors "belief_model" }}
-<br>
-<br>
-<b>
- Ihre ausgewählte Zuversicht: <span id="slider1_value" ></span>
-</b>
-<br>
 <br>
 
+
+<div>
+    <table class="likert">
+        <col span="1" class="wide">
+        <tr>
+            <th></th>
+            <th>Stimme gar nicht zu</th>
+            <th>Stimme nicht zu</th>
+            <th>Stimme eher nicht zu</th>
+            <th>Neutral</th>
+            <th>Stimme eher zu</th>
+            <th>Stimme zu</th>
+            <th>Stimme voll und ganz zu</th>
+        </tr>
+        <tr>
+            <th></th>
+            {{for choice in form.AI_competence.choices}}
+            <th>{{choice}}</th>
+            {{endfor}}
+        </tr>
+        <tr>
+            <td class="likert_label">{{ form.AI_competence.label }}</td>
+            {{ for choice in form.AI_competence }}
+            <td class="likert_choice">{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+        <tr>
+            <td class="likert_label">{{ form.AI_prejudice.label }}</td>
+            {{ for choice in form.AI_prejudice }}
+            <td class="likert_choice">{{ choice }}</td>
+            {{ endfor }}
+        </tr>
+
+    </table>
+</div>
 <br>
 
-{{ else }}
+{{ formfield 'AI_acc' }}
 
-<br>
-<p><b>Ihre Zuversicht gegenüber dem KI System basierend auf Ihren selektierten Attributen:</b></p>
-<br>
-<div id='KI-System_2' ></div>
-<input type="hidden" name="belief_model" id="belief_model_dec_fs" />
-{{ formfield_errors "belief_model" }}
-<br>
-<br>
-<b>
- Ihre ausgewählte Zuversicht: <span id="slider2_value" ></span>
-</b>
 
-{{ endif }}
-
-<br>
-<br>
 <br>
 <button id="next-button" class="otree-btn-next btn btn-primary">
     Weiter

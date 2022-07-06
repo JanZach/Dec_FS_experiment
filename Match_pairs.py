@@ -9,6 +9,7 @@ Data['dec_fs_dictatorGame.1.player.kept_predicted'] = 80  # Only for test reason
 
 Data['group_id']    = 0
 Data['Role']        = 0
+Data['decision_made_by']        = "/"
 Data['Payoff']      = 0
 
 print(Data.head())
@@ -57,23 +58,26 @@ def calc_payoffs(pairs, left_par = []):
         Data.loc[Data['participant.code'] == left_participant[0], 'Role'] = 'Dictator'
      
     # Calculate dictator payoff    
-    Data.loc[Data['Role']=='Dictator', 'Payoff'] = Data.apply(lambda row: random.choices([row['dec_fs_dictatorGame.1.player.kept'] + row['dec_fs_dictatorGame.1.player.specialEndowment'],
-                                                                                          row['dec_fs_dictatorGame.1.player.kept_predicted'] + row['dec_fs_dictatorGame.1.player.specialEndowment']],
-                                                                              weights=(100-row['dec_fs_dictatorGame.1.player.BDM'], row['dec_fs_dictatorGame.1.player.BDM'])), axis=1)
+    Data.loc[Data['Role']=='Dictator', 'decision_made_by'] = Data.apply(lambda row: random.choices(["player", "machine"],
+                                                                              weights=(100-row['dec_fs_dictatorGame.1.player.BDM'],
+                                                                                       row['dec_fs_dictatorGame.1.player.BDM']))[0], axis=1)
+    
+    Data.loc[Data['decision_made_by']=='player', 'Payoff'] = Data['dec_fs_dictatorGame.1.player.kept'] + Data['dec_fs_dictatorGame.1.player.specialEndowment']
+    Data.loc[Data['decision_made_by']=='machine', 'Payoff'] = Data['dec_fs_dictatorGame.1.player.kept_predicted'] + Data['dec_fs_dictatorGame.1.player.specialEndowment']                                                          
+    
     # Calculate recipient payoff                                            
     n_groups = Data['group_id'].unique()[-1]
     for i in range(1, n_groups+1): 
         
         if len(Data.loc[Data['group_id']==i])==2:
         
-            dictator_payoff         = Data.loc[(Data['Role']=='Dictator') & (Data['group_id']==i), 'Payoff'].iloc[0][0]
+            dictator_payoff         = Data.loc[(Data['Role']=='Dictator') & (Data['group_id']==i), 'Payoff'].iloc[0]
             dictator_specEndowment  = Data.loc[(Data['Role']=='Dictator') & (Data['group_id']==i), 'dec_fs_dictatorGame.1.player.specialEndowment'].iloc[0]
             recipient_specEndowment = Data.loc[(Data['Role']=='Recipient') & (Data['group_id']==i), 'dec_fs_dictatorGame.1.player.specialEndowment'].iloc[0]
             
             Data.loc[(Data['Role']=='Recipient') & (Data['group_id']==i), 'Payoff'] = 100 - (dictator_payoff - dictator_specEndowment) + recipient_specEndowment
     
-           
-        
+          
 
 # Execute functions
 pairs, left_participant = rand_pairs(lst_participant_codes)

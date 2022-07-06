@@ -120,9 +120,13 @@ class Player(BasePlayer):
     alcohol_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Verzehr alkoholischer Getränke", widget=widgets.RadioSelect)
 
 
-    # ML model beliefs
-    belief_model = models.IntegerField(choices=list(range(0,8)))
+    ### ---------- ML model beliefs
+    # Weitere measures überlegen
+    AI_competence   = models.IntegerField(choices=list(range(1,8)), label = "Die KI ist kompetent und effektiv bei der Vorhersage Ihrer Entscheidung",widget=widgets.RadioSelect)
+    AI_prejudice    = models.IntegerField(choices=list(range(1, 8)), label = "Die KI gibt eine unvoreingenommene Bewertung ab",widget=widgets.RadioSelect)
+    AI_acc          = models.IntegerField(min=0, max=100, label = "Auf einer Skala von 0 bis 100%: Für wie präzise halten Sie die Vorhersage der KI?")
 
+    ### Willingness to pay
     BDM = models.IntegerField(
         min=20, max=80, label="Please adjust the probability that the model overwrites your decision"
     )
@@ -354,7 +358,7 @@ class Introduction_of_algorithm(Page):
 
 class Elicitation_of_model_beliefs(Page):
     form_model="player"
-    form_fields= ["belief_model"]
+    form_fields= ["AI_competence", "AI_prejudice", "AI_acc"]
 
 class BDM(Page):
     form_model="player"
@@ -380,13 +384,13 @@ class Final_payoffs(Page):
         return dict(payoff = player.payoff)
 """
 
-page_sequence = [#Introduction,
+page_sequence = [Introduction,
                  questionnaire,
-                 #Explanation_of_DC,
-                 #Offer,
-                 #Introduction_of_algorithm,
+                 Explanation_of_DC,
+                 Offer,
+                 Introduction_of_algorithm,
                  dec_fs,
-                 #Elicitation_of_model_beliefs,
-                 #BDM,
-                 #Results,
+                 Elicitation_of_model_beliefs,
+                 BDM,
+                 Results,
                  ]
