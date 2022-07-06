@@ -1,0 +1,171 @@
+{{ block title }}
+Zahlungsbereitschaft für die Abwendung der KI-basierten Entscheidung
+{{ endblock }}
+
+{{ block content }}
+
+{{ block global_styles  }}
+    <link href= "{{static 'global/noUiSlider/dist/nouislider.css'}}" rel="stylesheet">
+    <script src="{{static 'global/noUiSlider/dist/nouislider.js'}}"></script>
+{{ endblock  }}
+    <!-- ------------------------------------------ -->
+
+{{ if player.treatment == 'baseline'}}
+
+<script>
+    $(document).ready(function() {
+        var slider1 = document.getElementById('BDM_1');
+
+        var range = {
+            'min': [20],
+            'max': [80]
+        };
+
+        noUiSlider.create(slider1, {
+            range: range,
+            start: 50,
+            step: 5,
+            tooltips: true,
+            pips: {
+                mode: 'count',
+                values: 7,
+                density: 1
+            }
+
+        });
+        // show slider value
+        var rangeSlider1Val = document.getElementById("slider1_value");
+
+        slider1.noUiSlider.on("update", function (values, handle) {
+            rangeSlider1Val.innerHTML = values[handle];
+        });
+
+        // show special endowment
+        var specialEndowment1 = document.getElementById("specialEndowment1");
+
+        slider1.noUiSlider.on("update", function (values, handle) {
+            specialEndowment1.innerHTML = 12 - (Math.abs(values[handle] - 50))/2.5 ;
+        });
+
+        // write slider result into form field for data export
+        document.getElementById("next-button").addEventListener("click", function () {
+            document.getElementById("BDM_full").value = parseInt(slider1.noUiSlider.get(true))
+        });
+    });
+</script>
+
+
+{{ else }}
+
+<script>
+    $(document).ready(function() {
+        var slider2 = document.getElementById('BDM_2');
+        var range = {
+            'min': [20],
+            'max': [80]
+        };
+
+        noUiSlider.create(slider2, {
+            range: range,
+            start: 50,
+            step: 5,
+            tooltips: true,
+            pips: {
+                mode: 'count',
+                values: 7,
+                density: 1
+            }
+
+        });
+        // show slider value
+        var rangeSlider2Val = document.getElementById("slider2_value");
+
+        slider2.noUiSlider.on("update", function (values, handle) {
+            rangeSlider2Val.innerHTML = values[handle];
+        });
+
+        // show special endowment
+        var specialEndowment2 = document.getElementById("specialEndowment2");
+
+        slider2.noUiSlider.on("update", function (values, handle) {
+            specialEndowment2.innerHTML = 12 - (Math.abs(values[handle] - 50))/2.5 ;
+        });
+
+        // write slider result into form field for data export
+        document.getElementById("next-button").addEventListener("click", function () {
+            document.getElementById("BDM_dec_fs").value = parseInt(slider2.noUiSlider.get(true))
+        });
+
+    });
+</script>
+
+{{ endif }}
+
+{{ if player.treatment == 'baseline' }}
+<br>
+<p>
+    Zum derzeitigen Stand wird die Vorhersage des KI-Systems zu einer Wahrscheinlichkeit von 50% Ihre selbst getroffene Entscheidung überschreiben. Im Folgenden geben wir Ihnen die Möglichkeit, diese
+    Wahrscheinlichkeit anzupassen.
+</p>
+<p>
+    Zu diesem Zweck werden wir Sie nun mit einem <b>Extra-Betrag in Höhe von 12 Punkten</b> ausstatten. Mithilfe dieses Betrags können Sie mit dem unten stehenden Schieberegler die Wahrscheinlichkeit,
+    dass Ihre  getroffene Entscheidung durch das KI-System überschrieben wird, anpassen. Diese Anpassung werden Sie jedoch mit einem Teil Ihres Extra-Betrages bezahlen müssen. In anderen Worten:
+    Durch eine Verschiebung der Wahrscheinlichkeit werden Sie Punkte Ihres Extra-Betrages verlieren!
+</p>
+
+
+<br>
+<br>
+<p><b>Bitte adjustieren Sie die Wahrscheinlichkeit, dass Ihre Entscheidung von dem KI-System basierend auf all Ihren Attributen getroffen wird</b></p>
+<br>
+<div id='BDM_1' ></div>
+<input type="hidden" name="BDM" id="BDM_full" />
+<br>
+<br>
+<br>
+<b>
+    Ihre ausgewählte Wahrscheinlichkeit: <span id="slider1_value" ></span>
+<br>
+    <br>
+Höhe des Extra-Betrags: <span id="specialEndowment1" ></span>
+</b>
+<br>
+<br>
+
+{{ else }}
+<br>
+<p>
+    Zum derzeitigen Stand wird die Vorhersage des KI-Systems zu einer Wahrscheinlichkeit von 50% Ihre selbst getroffene Entscheidung überschreiben. Im Folgenden geben wir Ihnen die Möglichkeit, diese
+    Wahrscheinlichkeit anzupassen.
+</p>
+<p>
+    Zu diesem Zweck werden wir Sie nun mit einem <b>Extra-Betrag in Höhe von 12 Punkten</b> ausstatten. Mithilfe dieses Betrags können Sie mit dem unten stehenden Schieberegler die Wahrscheinlichkeit,
+    dass Ihre  getroffene Entscheidung durch das KI-System überschrieben wird, anpassen. Diese Anpassung werden Sie jedoch mit einem Teil Ihres Extra-Betrages bezahlen müssen. In anderen Worten:
+    Durch eine Verschiebung der Wahrscheinlichkeit werden Sie Punkte Ihres Extra-Betrages verlieren!
+</p>
+
+<br>
+<br>
+<p><b>Bitte adjustieren Sie die Wahrscheinlichkeit, dass Ihre Entscheidung von dem KI-System basierend auf Ihren selektierten Attributen getroffen wird</b></p>
+<br>
+<div id='BDM_2' ></div>
+<input type="hidden" name="BDM" id="BDM_dec_fs" />
+<br>
+<br>
+<br>
+<b>
+    Ihre ausgewählte Wahrscheinlichkeit: <span id="slider2_value" ></span>
+<br>
+    <br>
+    Höhe des Extra-Betrags: <span id="specialEndowment2" ></span>
+</b>
+<br>
+<br>
+
+{{ endif }}
+
+<button id="next-button" class="otree-btn-next btn btn-primary">
+    Weiter
+</button>
+
+{{ endblock }}

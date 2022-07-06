@@ -1,0 +1,48 @@
+{{ block title }}Selektion Ihrer Attribute{{ endblock }}
+
+{{ block global_styles  }}
+
+    <link rel="stylesheet" href="{{ static 'global/style_sheet.css' }}">
+
+{{ endblock }}
+
+{{ block content }}
+<br>
+    <p>
+    <b>Bevor das KI-System seine Vorhersage trifft, geben wir Ihnen hiermit die Möglichkeit, das KI-System zu beeinflussen.</b>
+    <p>
+
+    <p>
+    Sie können im Folgenden selbst entscheiden, welche Ihrer Informationen Sie dem KI-System bereitstellen wollen und welche Informationen Sie zurückhalten möchten.
+    Die Vorhersage wird ausschließlich basierend auf den von Ihnen freiwillig bereitgestellten Merkmalen getroffen.
+    <p>
+
+    <p>
+    Für die Attribute, die Sie zurückhalten möchten, werden wir automatisiert den Durchschnittswert unserer Trainingsdaten einfügen.
+    <p>
+    <b>Bitte entscheiden Sie sich nun, welche Ihrer Merkmale Sie dem KI System bereitstellen möchten</b>
+    <p>
+
+        {{ if player.treatment == 'treatment_aware' }}
+
+<br>
+<div class="KI">
+    <table>
+        <tr>
+            <th><strong> Bitte beachten Sie, dass wir Ihre folgenden Entscheidungen bezüglich der Bereitstellung Ihrer Merkmale speichern und dem KI-System zur Verfügung stellen.
+            In anderen Worten: Die Tatsache, dass sie bestimmte Attribute zurückhalten möchten, könnte die Vorhersage des KI-Systems beeinflussen.</strong></th>
+        </tr>
+    </table>
+</div>
+<br>
+<br>
+        {{ else }}
+        {{ endif }}
+
+        {{ formfields }}
+
+        {{ next_button }}
+    </p>
+
+{{ endblock }}
+

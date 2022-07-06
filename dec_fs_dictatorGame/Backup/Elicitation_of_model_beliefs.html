@@ -1,0 +1,85 @@
+{{ block title }}Einstellung gegenüber dem KI-System{{ endblock }}
+{{ block content }}
+
+{{ block global_styles  }}
+    <link href= "{{static 'global/noUiSlider/dist/nouislider.css'}}" rel="stylesheet">
+    <script src="{{static 'global/noUiSlider/dist/nouislider.js'}}"></script>
+{{ endblock }}
+
+
+<br>
+    <p>
+
+        Wir möchten nun von Ihnen wissen, wie zuversichtlich Sie sich fühlen, dass die beiden zuvor eingeführten KI-Systeme (1. basierend auf all Ihren Attributen ; 2. basierend auf den
+        explizit bereitgestellten Attributen) Ihre Entscheidung korrekt vorhersagen. Bitte geben Sie Ihre Antwort auf einer Skala von 1 (sehr unsicher) bis 7 (sehr sicher) an.
+
+        {{ if player.treatment == 1 }}
+        <p><strong> Bitte beachten Sie, dass wir Ihre folgenden Entscheidungen bezüglich der Bereitstellung Ihrer Merkmale speichern und dem KI-System zur Verfügung stellen.
+            In anderen Worten: Die Tatsache, dass sie bestimmte Attribute zurückhalten möchten, könnte die Vorhersage des KI-Systems beeinflussen.</strong></p>
+        {{ else }}
+        {{ endif }}
+    <p>
+
+    <br>
+    <br>
+    <p>Ihre Zuversicht gegenüber dem dem KI System basierend auf all Ihren Attributen:</p>
+    <script>
+    $(document).ready(function(){
+
+          var slider1 = document.getElementById('KI-System_1');
+
+            var range = {
+                'min': [ 1 ],
+                'max': [ 7 ]
+            };
+
+            noUiSlider.create(slider1, {
+                range: range,
+                start: 4,
+                step: 1,
+                tooltips: true,
+                pips: {
+                    mode: 'count',
+                    values: 7,
+                    density: 7
+                }
+
+        });
+
+        // show slider value
+    var rangeSlider1Val = document.getElementById("slider1_value");
+
+      slider1.noUiSlider.on("update", function(values, handle){
+           rangeSlider1Val.innerHTML = values[handle];
+        });
+
+
+
+        // write slider result into form field for data export
+        document.getElementById("next-button").addEventListener("click", function (){
+           document.getElementById("belief_model_full").value = parseInt(slider1.noUiSlider.get(true))
+        });
+
+
+    });
+    </script>
+<br>
+    <!-- noUIslider-->
+<div id='KI-System_1' ></div>
+
+<!-- otree hidden form field -->
+<input type="hidden" name="belief_model_full" id="belief_model_full" />
+{{ formfield_errors "belief_model_full" }}
+<br>
+<br>
+
+<b>
+ Ihre ausgewählte Zuversicht: <span id="slider1_value" ></span>
+</b>
+<br>
+<button id="next-button" class="otree-btn-next btn btn-primary">
+    Weiter
+</button>
+
+{{ endblock }}
+

@@ -1,0 +1,132 @@
+{{ block title }}Einstellung gegenüber dem KI-System{{ endblock }}
+{{ block content }}
+
+{{ block global_styles  }}
+    <link href= "{{static 'global/noUiSlider/dist/nouislider.css'}}" rel="stylesheet">
+    <script src="{{static 'global/noUiSlider/dist/nouislider.js'}}"></script>
+{{ endblock }}
+
+
+{{ if player.treatment == 'baseline' }}
+<script>
+
+    $(document).ready(function() {
+        var slider1 = document.getElementById('KI-System_1');
+
+        var range = {
+            'min': [1],
+            'max': [7]
+        };
+
+        noUiSlider.create(slider1, {
+            range: range,
+            start: 4,
+            step: 1,
+            tooltips: true,
+            pips: {
+                mode: 'count',
+                values: 7,
+                density: 7
+            }
+
+        });
+        // show slider value
+        var rangeSlider1Val = document.getElementById("slider1_value");
+
+        slider1.noUiSlider.on("update", function (values, handle) {
+            rangeSlider1Val.innerHTML = values[handle];
+        });
+        // write slider result into form field for data export
+        document.getElementById("next-button").addEventListener("click", function () {
+            document.getElementById("belief_model_full").value = parseInt(slider1.noUiSlider.get(true))
+        });
+    });
+</script>
+
+
+{{ else }}
+<script>
+    $(document).ready(function(){
+        var slider2 = document.getElementById('KI-System_2');
+
+            var range = {
+                'min': [ 1 ],
+                'max': [ 7 ]
+            };
+
+            noUiSlider.create(slider2, {
+                range: range,
+                start: 4,
+                step: 1,
+                tooltips: true,
+                pips: {
+                    mode: 'count',
+                    values: 7,
+                    density: 7
+                }
+        });
+        // show slider value
+    var rangeSlider2Val = document.getElementById("slider2_value");
+
+      slider2.noUiSlider.on("update", function(values, handle){
+           rangeSlider2Val.innerHTML = values[handle];
+        });
+          // write slider result into form field for data export
+        document.getElementById("next-button").addEventListener("click", function (){
+           document.getElementById("belief_model_dec_fs").value = parseInt(slider2.noUiSlider.get(true))
+        });
+
+    });
+    </script>
+{{ endif }}
+
+<br>
+    <p>
+
+        Wir möchten nun von Ihnen wissen, wie zuversichtlich Sie sich fühlen, dass das zuvor eingeführte KI-System Ihre Entscheidung korrekt vorhersagen wird.
+        Bitte geben Sie Ihre Antwort auf einer Skala von 1 (sehr unsicher) bis 7 (sehr sicher) an.
+    <p>
+    <br>
+
+{{ if player.treatment == 'baseline' }}
+
+<p><b>Ihre Zuversicht gegenüber dem KI System:</b></p>
+<br>
+<div id='KI-System_1' ></div>
+<input type="hidden" name="belief_model" id="belief_model_full" />
+{{ formfield_errors "belief_model" }}
+<br>
+<br>
+<b>
+ Ihre ausgewählte Zuversicht: <span id="slider1_value" ></span>
+</b>
+<br>
+<br>
+
+<br>
+
+{{ else }}
+
+<br>
+<p><b>Ihre Zuversicht gegenüber dem KI System basierend auf Ihren selektierten Attributen:</b></p>
+<br>
+<div id='KI-System_2' ></div>
+<input type="hidden" name="belief_model" id="belief_model_dec_fs" />
+{{ formfield_errors "belief_model" }}
+<br>
+<br>
+<b>
+ Ihre ausgewählte Zuversicht: <span id="slider2_value" ></span>
+</b>
+
+{{ endif }}
+
+<br>
+<br>
+<br>
+<button id="next-button" class="otree-btn-next btn btn-primary">
+    Weiter
+</button>
+
+{{ endblock }}
+

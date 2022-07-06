@@ -1,0 +1,41 @@
+{{ block title }}
+Einführung in das Experiment
+{{ endblock }}
+
+{{ block global_styles  }}
+
+    <link rel="stylesheet" href="{{ static 'global/style_sheet.css' }}">
+
+{{ endblock }}
+
+{{ block content }}
+
+<div>
+    <br>
+    <p>
+        Das folgende Experiment besteht aus einer Interaktion zweier Teilnehmer: <b>Teilnehmer 1</b> und <b>Teilnehmer 2</b>.
+    </p>
+    <p>
+        Zu Beginn wird Teilnehmer 1 einen Wert in Höhe von 100 Punkten erhalten.
+        Diese Punkte kann Teilnehmer 1 im Anschluss an das Experiment zu einem bestimmten Wechselkurs in echtes Geld eintauschen.
+    </p>
+    <p>
+        Teilnehmer 1 hat im Folgenden die Möglichkeit, einen Teil der verliehenen Punkte mit Teilnehmer 2 zu teilen oder den vollen Betrag für sich selbst zu behalten.
+        Die Entscheidung ist <b>anonym</b> und kann von Teilnehmer 2 nicht beeinflusst werden. Teilnehmer 2 nimmt in diesem Experiment eine passive Rolle ein und hat selbst keine Entscheidungsmacht.
+    </p>
+    <p>
+        Stellen Sie sich für das folgende Experiment vor, dass Sie die Rolle des Teilnehmer 1 einnehmen. Das heißt, Sie werden sich entscheiden, ob Sie den vollen Betrag behalten, oder einen Teil des Betrages
+        mit einem anderen menschlichen Mitspieler, Teilnehmer 2, teilen würden. Alle anderen Teilnehmer des Experiments werden ebenfalls in die Rolle des Teilnehmer 1 versetzt und werden folglich mit der gleichen
+        Entscheidung konfrontiert.
+        <br>
+        Nachdem alle Teilnehmer Ihre Entscheidung getroffen haben, werden wir Sie im Anschluss an das Experiment zufällig mit einer weiteren Person in eine Zweier-Gruppe gruppieren. Per Zufall werden wir daraufhin
+        Sie und Ihr Gruppenmitglied entweder in die Rolle des Teilnehmer 1, oder in die Rolle des Teilnehmer 2 versetzen. Wenn Sie die Rolle des Teilnehmer 1 einnehmen, wird Ihre zuvor getroffene Entscheidung ausgeführt.
+        Wenn Ihr Gruppenmitglied hingegen die Rolle des Teilnehmer 1 einnimmt, wird die Entscheidung dessen Entscheidung ausgeführt.
+    </p>
+    <p>
+        <b>Bitte beachten Sie, dass Sie Ihre Entscheidung geheim fällen, das heißt, Ihre Entscheidung kann die Entscheidung Ihres Gegenüber nicht beeinflussen.</b>
+    </p>
+</div>
+<br>
+{{ next_button }}
+{{ endblock }}

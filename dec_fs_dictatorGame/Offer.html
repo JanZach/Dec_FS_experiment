@@ -1,0 +1,26 @@
+{{ block title }}Ihre Entscheidung{{ endblock }}
+
+{{ block global_styles  }}
+
+    <link rel="stylesheet" href="{{ static 'global/style_sheet.css' }}">
+
+{{ endblock }}
+
+{{ block content }}
+<br>
+<div>
+    <p>
+        Versetzen Sie sich nun in die Lage des <b>Teilnehmer 1</b>. Bitte entscheiden Sie sich, ob Sie den gesamten Betrag (100 Punkte) behalten, oder einen Teil des Betrages Ihrem Gegenüber übergeben möchten.
+    </p>
+    <p>
+        Hierbei haben Sie zwei Möglichkeiten: Entweder, Sie behalten den vollen Betrag, oder Sie behalten 70 Punkte und übergeben Teilnehmer 2 die restlichen 30 Punkte.
+    </p>
+
+</div>
+
+<br>
+    {{ formfields }}
+<br>
+    {{ next_button }}
+
+{{ endblock }}

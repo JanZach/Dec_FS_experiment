@@ -1,0 +1,191 @@
+{{ block title }}Initialer Fragebogen{{ endblock }}
+
+{{ block global_styles  }}
+
+    <link rel="stylesheet" href="{{ static 'global/style_sheet.css' }}">
+
+{{ endblock }}
+
+
+{{ block content }}
+
+<script>
+    // When players click on table cell radio button gets selected
+            $(document).on("click","td",function(){
+                $(this).find("input:radio").prop("checked", true);
+            })
+</script>
+
+<br>
+<p>
+    Bevor wir mit dem Experiment beginnen, möchten wir Sie bitten uns einige Informationen über sich bereitzustellen.
+</p>
+<p>
+    <b>Aufgabe:</b> Bitte füllen Sie die folgenden Felder wahrheitsgemäß aus:
+</p>
+<p>
+    {{ for field in descriptives }}
+    {{ formfield field}}
+<br>
+{{ endfor }}
+<br>
+
+<p>
+Wie zufrieden Sind Sie mit... <br><b>(0 = Ganz und gar nicht zufrieden; 10 = Ganz und gar zufrieden)</b>
+    <table class="likert">
+    <col span="1" >
+    <tr>
+        <th></th>
+        {{for choice in form.sat_leisureTime.choices}}
+            <th>{{choice}}</th>
+        {{endfor}}
+    </tr>
+    <tr>
+        <td class="likert_label">{{ form.sat_leisureTime.label }}</td>
+        {{ for choice in form.sat_leisureTime }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+    <tr>
+        <td class="likert_label">{{ form.sat_persIncome.label }}</td>
+        {{ for choice in form.sat_persIncome }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+        <tr>
+        <td class="likert_label">{{ form.sat_socialLife.label }}</td>
+        {{ for choice in form.sat_socialLife }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+        <tr>
+        <td class="likert_label">{{ form.sat_democracy.label }}</td>
+        {{ for choice in form.sat_democracy }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+</table>
+</p>
+<br>
+<br>
+<p>
+    Wie schätzen Sie sich persönlich ein: Sind Sie im Allgemeinen ein risikobereiter Mensch oder versuchen Sie, Risiken zu vermeiden? <br><b>(0 = Gar nicht risikobereit; 10 = Sehr risikobereit)</b>
+    <table class="likert">
+    <col span="1" class="wide">
+
+    <tr>
+        <th></th>
+        {{for choice in form.will_risk.choices}}
+            <th>{{choice}}</th>
+        {{endfor}}
+    </tr>
+    <tr>
+        <td class="likert_label">{{ form.will_risk.label }}</td>
+        {{ for choice in form.will_risk }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+</table>
+</p>
+
+<br>
+<br>
+
+<p>
+    Wie wichtig ist Ihnen Ihr Glaube/ Ihre Religion?
+    <table class="likert">
+    <col span="1" class="wide">
+
+        <tr>
+        <th></th>
+        <th>Sehr wichtig</th>
+        <th>Wichtig</th>
+        <th>Weniger wichtig</th>
+        <th>Ganz unwichtig</th>
+    </tr>
+    <tr>
+        <th></th>
+        {{for choice in form.importance_religion.choices}}
+            <th>{{choice}}</th>
+        {{endfor}}
+    </tr>
+    <tr>
+        <td class="likert_label">{{ form.importance_religion.label }}</td>
+        {{ for choice in form.importance_religion }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+</table>
+</p>
+
+<br>
+<br>
+
+<p>
+    Wie häufig kommt es vor, dass Sie Ihren Kontostand anschauen / überprüfen?
+    <table class="likert">
+    <col span="1" class="wide">
+
+        <tr>
+        <th></th>
+        <th>Täglich</th>
+        <th>Mindestens 1 Mal pro Woche</th>
+        <th>Mindestens 1 Mal pro Monat</th>
+        <th>Seltener</th>
+        <th>Nie</th>
+    </tr>
+    <tr>
+        <th></th>
+        {{for choice in form.check_account.choices}}
+            <th>{{choice}}</th>
+        {{endfor}}
+    </tr>
+    <tr>
+        <td class="likert_label">{{ form.check_account.label }}</td>
+        {{ for choice in form.check_account }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+</table>
+</p>
+
+<br>
+<br>
+
+<p>
+    Wie oft trinken Sie alkoholhaltige Getränke?
+    <table class="likert">
+    <col span="1" class="wide">
+
+        <tr>
+        <th></th>
+        <th>Täglich</th>
+        <th>An vier bis sechs Tagen in der Woche</th>
+        <th>An zwei bis drei Tagen in der Woche</th>
+        <th>An zwei bis vier Tagen im Monat</th>
+        <th>Einmal im Monat oder seltener</th>
+        <th>Nie</th>
+    </tr>
+    <tr>
+        <th></th>
+        {{for choice in form.alcohol.choices}}
+            <th>{{choice}}</th>
+        {{endfor}}
+    </tr>
+    <tr>
+        <td class="likert_label">{{ form.alcohol.label }}</td>
+        {{ for choice in form.alcohol }}
+            <td class="likert_choice">{{ choice }}</td>
+        {{ endfor }}
+    </tr>
+</table>
+</p>
+
+
+<br>
+{{ next_button }}
+
+
+{{ endblock }}
+
+
