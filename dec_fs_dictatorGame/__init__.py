@@ -69,7 +69,10 @@ class Player(BasePlayer):
     germborn = models.IntegerField(choices=[[0, 'Nicht in Deutschland geboren'], [1, 'In Deutschland geboren']], label="Sind Sie in Deutschland geboren?",
                                     widget=widgets.RadioSelect)
     # Monatliches Brutto-Einkommen
-    income = models.IntegerField(label="Ihr monatliches Bruttoeinkommen in Euro:", blank=False)
+    income = models.IntegerField(choices=[[0, '< 1000 €'],[1, '1001 - 1500 €'],[2, '1501 - 2000 €'],
+                                          [3, '2001 - 2500 €'],[4, '2501 - 3000 €'],[5, '3001 - 3500 €'],
+                                          [6, '3501 - 4000 €'],[7, '4001 - 4500 €'],[8, '4501 - 5000 €'],
+                                          [9, '> 5000 €']], label="Ihr monatliches Bruttoeinkommen in Euro:", blank=False)
     # Ausbildungs- und Trainingsjahre (Schule + weiterführende Ausbildung wie Uni, Berufsschule etc.)
     education = models.IntegerField(label="Die Gesamtdauer Ihrer Ausbildung in Jahre (Beginn ab der 1. Schulklasse)", blank=False)
 
@@ -154,7 +157,7 @@ def set_payoffs(group: Group):
     recipient.payoff = 100-group.kept + recipient.specialEndowment
 """
 
-ml_model = pickle.load(open('altruism_prediction_model.sav','rb'))
+ml_model = pickle.load(open('altruism_prediction_model_bins.sav','rb'))
 
 
 def predict_fairness_full(player: Player):  # Predict the fairness/reciprocity of dictator based on all attributes
@@ -177,32 +180,32 @@ def predict_fairness_full(player: Player):  # Predict the fairness/reciprocity o
 
     # Create the input for the ML model; consists of (1) questionnaire attr. and (2) dummies=0
     input_obs_dict = pd.DataFrame({"age": player.age,
+                                   "education": player.education,
                                    "sex": player.sex,
                                    "germborn": player.germborn,
-                                   "income": player.income,
-                                   "education": player.education,
                                    "sat_leisureTime": player.sat_leisureTime,
                                    "sat_persIncome": player.sat_persIncome,
-                                   "sat_socialLife": player.sat_socialLife,
                                    "sat_democracy": player.sat_democracy,
                                    "will_risk": player.will_risk,
+                                   "sat_socialLife": player.sat_socialLife,
                                    "importance_religion": player.importance_religion,
                                    "check_account": player.check_account,
                                    "alcohol": player.alcohol,
+                                   "income": player.income,
                                    # ----- Dummies --------
                                    "age_dummy": player.age_dummy,
+                                   "education_dummy": player.education_dummy,
                                    "sex_dummy": player.sex_dummy,
                                    "germborn_dummy": player.germborn_dummy,
-                                   "income_dummy": player.income_dummy,
-                                   "education_dummy": player.education_dummy,
                                    "sat_leisureTime_dummy": player.sat_leisureTime_dummy,
                                    "sat_persIncome_dummy": player.sat_persIncome_dummy,
-                                   "sat_socialLife_dummy": player.sat_socialLife_dummy,
                                    "sat_democracy_dummy": player.sat_democracy_dummy,
                                    "will_risk_dummy": player.will_risk_dummy,
+                                   "sat_socialLife_dummy": player.sat_socialLife_dummy,
                                    "importance_religion_dummy": player.importance_religion_dummy,
                                    "check_account_dummy": player.check_account_dummy,
-                                   "alcohol_dummy": player.alcohol_dummy
+                                   "alcohol_dummy": player.alcohol_dummy,
+                                   "income_dummy": player.income_dummy
                                    },
                                   index=[0])
 
@@ -253,32 +256,32 @@ def predict_fairness_dec_fs(player: Player):  # Predict the fairness/reciprocity
             participant.vars[par_field] = var
 
     input_obs_dict = pd.DataFrame({"age": participant.age,
+                                   "education": participant.education,
                                    "sex": participant.sex,
                                    "germborn": participant.germborn,
-                                   "income": participant.income,
-                                   "education": participant.education,
                                    "sat_leisureTime": participant.sat_leisureTime,
                                    "sat_persIncome": participant.sat_persIncome,
-                                   "sat_socialLife": participant.sat_socialLife,
                                    "sat_democracy": participant.sat_democracy,
                                    "will_risk": participant.will_risk,
+                                   "sat_socialLife": participant.sat_socialLife,
                                    "importance_religion": participant.importance_religion,
                                    "check_account": participant.check_account,
                                    "alcohol": participant.alcohol,
+                                   "income": participant.income,
                                    # ----- Dummies --------
                                    "age_dummy": player.age_dummy,
+                                   "education_dummy": player.education_dummy,
                                    "sex_dummy": player.sex_dummy,
                                    "germborn_dummy": player.germborn_dummy,
-                                   "income_dummy": player.income_dummy,
-                                   "education_dummy": player.education_dummy,
                                    "sat_leisureTime_dummy": player.sat_leisureTime_dummy,
                                    "sat_persIncome_dummy": player.sat_persIncome_dummy,
-                                   "sat_socialLife_dummy": player.sat_socialLife_dummy,
                                    "sat_democracy_dummy": player.sat_democracy_dummy,
                                    "will_risk_dummy": player.will_risk_dummy,
+                                   "sat_socialLife_dummy": player.sat_socialLife_dummy,
                                    "importance_religion_dummy": player.importance_religion_dummy,
                                    "check_account_dummy": player.check_account_dummy,
-                                   "alcohol_dummy": player.alcohol_dummy
+                                   "alcohol_dummy": player.alcohol_dummy,
+                                   "income_dummy": player.income_dummy
                                    },
                                   index=[0])
 
