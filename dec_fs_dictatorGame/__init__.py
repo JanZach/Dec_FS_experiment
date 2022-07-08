@@ -94,16 +94,18 @@ class Player(BasePlayer):
     will_risk = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihre Risikobereitschaft:",
                                     widget=widgets.RadioSelectHorizontal, blank=True)
     # Wichtigkeit Glaube (bgp0610)
-    importance_religion = models.IntegerField(choices=[1, 2, 3, 4],
+    importance_religion = models.IntegerField(choices=[[1,"Sehr wichtig"], [2, "Wichtig"], [3, "Weniger wichtig"], [4, "Ganz unwichtig"]],
                                     label="Wichtigkeit der Religion:",
                                     widget=widgets.RadioSelectHorizontal, blank=True)
     # Überprüfung Kontostand (bgp0702)
-    check_account = models.IntegerField(choices=[1, 2, 3, 4, 5],
+    check_account = models.IntegerField(choices=[[1, "Täglich"], [2, "Mindestens 1 mal pro Woche"], [3, "Mindestens 1 mal pro Monat"], [4, "Seltener"], [5, "Nie"]],
                                               label="Häufigkeit der Überprüfung des Kontostands:",
                                               widget=widgets.RadioSelectHorizontal, blank=True)
     # Wie oft Alkohol (bgp115)
-    alcohol = models.IntegerField(choices=[1, 2, 3, 4, 5, 6], label="Häufigkeit des Verzehrs alkoholischer Getränke",
-                                              widget=widgets.RadioSelectHorizontal, blank=True)
+    alcohol = models.IntegerField(choices=[[1, "Täglich"], [2, "An vier bis sechs Tagen in der Woche"], [3, "An zwei bis drei Tagen in der Woche"],
+                                           [4, "An zwei bis vier Tagen im Monat"], [5, "Einmal im Monat oder seltener"],
+                                           [6, "Nie"]], label="Häufigkeit des Verzehrs alkoholischer Getränke",
+                                              widget=widgets.RadioSelect, blank=True)
 
     # - - - - - - - - - - - - - - - - - - - - - -
 
@@ -348,6 +350,7 @@ class dec_fs(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         predict_fairness_dec_fs(player)
+
 
 class Offer(Page):
     form_model = 'player'

@@ -39,10 +39,88 @@
         {{ else }}
         {{ endif }}
 
-        {{ formfields }}
+<table class="likert">
+<col span="1" >
+    <tr>
+        <th></th>
+        <th>Ihre Auswahl</th>
+        <th>Ihre Angabe</th>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihr Alter</td>
+        <td class="likert_label">{{ formfield "age_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.age}} Jahre</td>
+    </tr>
+        <tr>
+        <td class="likert_label">Ihr Geschlecht</td>
+        <td class="likert_label">{{ formfield "sex_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.field_display('sex')}} </td>
+    </tr>
+    <tr>
+        <td class="likert_label">In Deutschland geboren?</td>
+        <td class="likert_label">{{ formfield "germborn_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.field_display('germborn')}}</td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihr Monats-Bruttoeinkommen</td>
+        <td class="likert_label">{{ formfield "income_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.field_display('income')}} </td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihre Anzahl an Ausbildungsjahren</td>
+        <td class="likert_label">{{ formfield "education_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.education}} Jahre</td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihre Zufriedenheit mit Ihrer Freizeit</td>
+        <td class="likert_label">{{ formfield "sat_leisureTime_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.sat_leisureTime}} von 10 </td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihre Zufriedenheit mit Ihrem persönlichen Einkommen</td>
+        <td class="likert_label">{{ formfield "sat_persIncome_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.sat_persIncome}} von 10</td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihre Zufriedenheit mit Ihren Freunden und Bekannten</td>
+        <td class="likert_label">{{ formfield "sat_socialLife_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.sat_socialLife}} von 10 </td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihre Zufriedenheit mit der Demokratie in Deutschland</td>
+        <td class="likert_label">{{ formfield "sat_democracy_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.sat_democracy}} von 10 </td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihre Risikobereitschaft</td>
+        <td class="likert_label">{{ formfield "will_risk_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.will_risk}} von 10 </td>
+    </tr>
 
-        {{ next_button }}
-    </p>
+    <tr>
+        <td class="likert_label">Die Wichtigkeit Ihrer Religion/ Ihres Glaubens</td>
+        <td class="likert_label">{{ formfield "importance_religion_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.field_display('importance_religion')}}</td>
+    </tr>
+    <tr>
+        <td class="likert_label">Die Häufigkeit der Überprüfung Ihres Kontostands</td>
+        <td class="likert_label">{{ formfield "check_account_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.field_display('check_account')}} </td>
+    </tr>
+    <tr>
+        <td class="likert_label">Ihre Häufigkeit des Konsums alkoholischer Getränke</td>
+        <td class="likert_label">{{ formfield "alcohol_dummy" label="" }}</td>
+        <td class="likert_choice">{{player.field_display('alcohol')}} </td>
+    </tr>
+
+
+
+</table>
+
+<br>
+<br>
+
+{{ next_button }}
 
 {{ endblock }}
 

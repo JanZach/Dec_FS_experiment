@@ -65,7 +65,7 @@ Wie zufrieden Sind Sie mit... <br><b>(0 = Ganz und gar nicht zufrieden; 10 = Gan
         {{ endfor }}
     </tr>
 </table>
-</p>
+
 <br>
 <br>
 <p>
@@ -86,101 +86,27 @@ Wie zufrieden Sind Sie mit... <br><b>(0 = Ganz und gar nicht zufrieden; 10 = Gan
         {{ endfor }}
     </tr>
 </table>
-</p>
+
 
 <br>
 <br>
 
 <p>
     Wie wichtig ist Ihnen Ihr Glaube/ Ihre Religion?
-    <table class="likert">
-    <col span="1" class="wide">
-
-        <tr>
-        <th></th>
-        <th>Sehr wichtig</th>
-        <th>Wichtig</th>
-        <th>Weniger wichtig</th>
-        <th>Ganz unwichtig</th>
-    </tr>
-    <tr>
-        <th></th>
-        {{for choice in form.importance_religion.choices}}
-            <th>{{choice}}</th>
-        {{endfor}}
-    </tr>
-    <tr>
-        <td class="likert_label">{{ form.importance_religion.label }}</td>
-        {{ for choice in form.importance_religion }}
-            <td class="likert_choice">{{ choice }}</td>
-        {{ endfor }}
-    </tr>
-</table>
+    {{ form.importance_religion }}
 </p>
-
 <br>
 <br>
-
 <p>
     Wie häufig kommt es vor, dass Sie Ihren Kontostand anschauen / überprüfen?
-    <table class="likert">
-    <col span="1" class="wide">
-
-        <tr>
-        <th></th>
-        <th>Täglich</th>
-        <th>Mindestens 1 Mal pro Woche</th>
-        <th>Mindestens 1 Mal pro Monat</th>
-        <th>Seltener</th>
-        <th>Nie</th>
-    </tr>
-    <tr>
-        <th></th>
-        {{for choice in form.check_account.choices}}
-            <th>{{choice}}</th>
-        {{endfor}}
-    </tr>
-    <tr>
-        <td class="likert_label">{{ form.check_account.label }}</td>
-        {{ for choice in form.check_account }}
-            <td class="likert_choice">{{ choice }}</td>
-        {{ endfor }}
-    </tr>
-</table>
+    {{ form.check_account }}
 </p>
-
 <br>
 <br>
-
 <p>
     Wie oft trinken Sie alkoholhaltige Getränke?
-    <table class="likert">
-    <col span="1" class="wide">
-
-        <tr>
-        <th></th>
-        <th>Täglich</th>
-        <th>An vier bis sechs Tagen in der Woche</th>
-        <th>An zwei bis drei Tagen in der Woche</th>
-        <th>An zwei bis vier Tagen im Monat</th>
-        <th>Einmal im Monat oder seltener</th>
-        <th>Nie</th>
-    </tr>
-    <tr>
-        <th></th>
-        {{for choice in form.alcohol.choices}}
-            <th>{{choice}}</th>
-        {{endfor}}
-    </tr>
-    <tr>
-        <td class="likert_label">{{ form.alcohol.label }}</td>
-        {{ for choice in form.alcohol }}
-            <td class="likert_choice">{{ choice }}</td>
-        {{ endfor }}
-    </tr>
-</table>
+    {{ form.alcohol }}
 </p>
-
 
 <br>
 {{ next_button }}
