@@ -79,50 +79,65 @@ class Player(BasePlayer):
     ### Likert 10 ###
 
     # Zufriedenheit mit Freizeit (bgp0108)
-    sat_leisureTime = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihrer Freizeit?", widget=widgets.RadioSelectHorizontal, blank=True)
+    sat_leisureTime = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihrer Freizeit?", widget=widgets.RadioSelectHorizontal, blank=False)
     # Zufriedenheit mit Haushaltseinkommen (erst mal weglassen) (bgp0105)
     # ...
     # Zufriedenheit mit Personal Income (bgp0106)
-    sat_persIncome = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihrem persönlichen Einkommen?", widget=widgets.RadioSelectHorizontal, blank=True)
+    sat_persIncome = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihrem persönlichen Einkommen?", widget=widgets.RadioSelectHorizontal, blank=False)
     # Zufriedenheit mit Social Life (bgp0111)
-    sat_socialLife = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihren Freunden und Bekannten?", widget=widgets.RadioSelectHorizontal, blank=True)
+    sat_socialLife = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihren Freunden und Bekannten?", widget=widgets.RadioSelectHorizontal, blank=False)
     # Zufriedenheit mit Demokratie (bgp0112)
-    sat_democracy = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="der Demokratie, wie sie in Deutschland derzeit besteht?", widget=widgets.RadioSelectHorizontal, blank=True)
+    sat_democracy = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="der Demokratie, wie sie in Deutschland derzeit besteht?", widget=widgets.RadioSelectHorizontal, blank=False)
 
     ### Likert other ###
     # Risikobereitschaft (bgp05)
     will_risk = models.IntegerField(choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], label="Ihre Risikobereitschaft:",
-                                    widget=widgets.RadioSelectHorizontal, blank=True)
+                                    widget=widgets.RadioSelectHorizontal, blank=False)
     # Wichtigkeit Glaube (bgp0610)
     importance_religion = models.IntegerField(choices=[[1,"Sehr wichtig"], [2, "Wichtig"], [3, "Weniger wichtig"], [4, "Ganz unwichtig"]],
                                     label="Wichtigkeit der Religion:",
-                                    widget=widgets.RadioSelectHorizontal, blank=True)
+                                    widget=widgets.RadioSelectHorizontal, blank=False)
     # Überprüfung Kontostand (bgp0702)
     check_account = models.IntegerField(choices=[[1, "Täglich"], [2, "Mindestens 1 mal pro Woche"], [3, "Mindestens 1 mal pro Monat"], [4, "Seltener"], [5, "Nie"]],
                                               label="Häufigkeit der Überprüfung des Kontostands:",
-                                              widget=widgets.RadioSelectHorizontal, blank=True)
+                                              widget=widgets.RadioSelectHorizontal, blank=False)
     # Wie oft Alkohol (bgp115)
     alcohol = models.IntegerField(choices=[[1, "Täglich"], [2, "An vier bis sechs Tagen in der Woche"], [3, "An zwei bis drei Tagen in der Woche"],
                                            [4, "An zwei bis vier Tagen im Monat"], [5, "Einmal im Monat oder seltener"],
                                            [6, "Nie"]], label="Häufigkeit des Verzehrs alkoholischer Getränke",
-                                              widget=widgets.RadioSelect, blank=True)
+                                              widget=widgets.RadioSelect, blank=False)
 
     # - - - - - - - - - - - - - - - - - - - - - -
 
     # Dummy variables
-    age_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Alter", widget=widgets.RadioSelect)
-    sex_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Geschlecht", widget=widgets.RadioSelect)
-    germborn_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="In Deutschland geboren", widget=widgets.RadioSelect)
-    income_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Monats-Bruttoeinkommen", widget=widgets.RadioSelect)
-    education_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Ausbildungs-Jahre", widget=widgets.RadioSelect)
-    sat_leisureTime_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Zufriedenheit Freizeit", widget=widgets.RadioSelect)
-    sat_persIncome_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Zufriedenheit persönliches Einkommen", widget=widgets.RadioSelect)
-    sat_socialLife_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Zufriedenheit mit Freunden und Bekannten", widget=widgets.RadioSelect)
-    sat_democracy_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Zufriedenheit mit Demokratie",widget=widgets.RadioSelect)
-    will_risk_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Risikobereitschaft", widget=widgets.RadioSelect)
-    importance_religion_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Wichtigkeit der Religion / des Glaubens", widget=widgets.RadioSelect)
-    check_account_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Prüfung des Kontos",widget=widgets.RadioSelect)
-    alcohol_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Verzehr alkoholischer Getränke", widget=widgets.RadioSelect)
+    age_dummy       = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Alter", widget=widgets.RadioSelect, blank=False)
+    sex_dummy       = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Geschlecht", widget=widgets.RadioSelect, blank=False)
+    germborn_dummy  = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="In Deutschland geboren", widget=widgets.RadioSelect, blank=False)
+    income_dummy    = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Monats-Bruttoeinkommen", widget=widgets.RadioSelect, blank=False)
+    education_dummy       = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Ausbildungs-Jahre", widget=widgets.RadioSelect, blank=False)
+    sat_leisureTime_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Zufriedenheit Freizeit", widget=widgets.RadioSelect, blank=False)
+    sat_persIncome_dummy  = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Zufriedenheit persönliches Einkommen", widget=widgets.RadioSelect, blank=False)
+    sat_socialLife_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'],[1, 'Zurückhalten']], label="Zufriedenheit mit Freunden und Bekannten", widget=widgets.RadioSelect, blank=False)
+    sat_democracy_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Zufriedenheit mit Demokratie",widget=widgets.RadioSelect, blank=False)
+    will_risk_dummy     = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Risikobereitschaft", widget=widgets.RadioSelect, blank=False)
+    importance_religion_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Wichtigkeit der Religion / des Glaubens", widget=widgets.RadioSelect, blank=False)
+    check_account_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Prüfung des Kontos",widget=widgets.RadioSelect, blank=False)
+    alcohol_dummy = models.IntegerField(choices=[[0, 'Bereitstellen'], [1, 'Zurückhalten']],label="Verzehr alkoholischer Getränke", widget=widgets.RadioSelect, blank=False)
+
+    # Variable evaluations
+    age_evaluation              = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Alter", blank=False)
+    sex_evaluation              = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Geschlecht", blank=False)
+    germborn_evaluation         = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="In Deutschland geboren", blank=False)
+    income_evaluation           = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Monats-Bruttoeinkommen", blank=False)
+    education_evaluation        = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Ausbildungs-Jahre", blank=False)
+    sat_leisureTime_evaluation  = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Zufriedenheit Freizeit", blank=False)
+    sat_persIncome_evaluation   = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Zufriedenheit persönliches Einkommen", blank=False)
+    sat_socialLife_evaluation   = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Zufriedenheit mit Freunden und Bekannten", blank=False)
+    sat_democracy_evaluation    = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Zufriedenheit mit Demokratie", blank=False)
+    will_risk_evaluation        = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Risikobereitschaft", blank=False)
+    importance_religion_evaluation = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Wichtigkeit der Religion / des Glaubens", blank=False)
+    check_account_evaluation    = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Prüfung des Kontos", blank=False)
+    alcohol_evaluation          = models.IntegerField(choices=[1, 2, 3, 4, 5], widget=widgets.RadioSelect, label="Verzehr alkoholischer Getränke", blank=False)
 
 
     ### ---------- ML model beliefs
@@ -351,6 +366,14 @@ class dec_fs(Page):
     def before_next_page(player: Player, timeout_happened):
         predict_fairness_dec_fs(player)
 
+class Variable_evaluation(Page):
+    form_model = 'player'
+    form_fields = ["age_evaluation", "sex_evaluation", "germborn_evaluation", "income_evaluation", "education_evaluation",
+                   "sat_leisureTime_evaluation", "sat_persIncome_evaluation", "sat_socialLife_evaluation", "sat_democracy_evaluation",
+                   "will_risk_evaluation", "importance_religion_evaluation", "check_account_evaluation",
+                   "alcohol_evaluation"]  # todo: Bei neuen features anpassen!
+
+
 
 class Offer(Page):
     form_model = 'player'
@@ -396,6 +419,7 @@ page_sequence = [Introduction,
                  Offer,
                  Introduction_of_algorithm,
                  dec_fs,
+                 Variable_evaluation,
                  Elicitation_of_model_beliefs,
                  BDM,
                  Results,

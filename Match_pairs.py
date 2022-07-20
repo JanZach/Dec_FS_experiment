@@ -5,7 +5,7 @@ import math
 
 Data = pd.read_csv('C:/Users/janmo/OneDrive/Dokumente/Goethe Uni/Doktor/Projekte/Decentralized Feature Selection 1/Otree/otree_test_output_3.csv')
 Data = Data.loc[pd.isna(Data['participant._current_app_name'])==False, :]
-Data['dec_fs_dictatorGame.1.player.kept_predicted'] = 80  # Only for test reasons, delete when instances are filled!
+#Data['dec_fs_dictatorGame.1.player.kept_predicted'] = 80  # Only for test reasons, delete when instances are filled!
 
 Data['group_id']    = 0
 Data['Role']        = 0
